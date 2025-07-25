@@ -1,0 +1,67 @@
+seed_everything: true
+
+trainer:
+  accelerator: gpu
+  devices: 1
+  num_nodes: 1
+
+  strategy: deepspeed_stage_2_offload
+
+  precision: bf16
+
+  callbacks:
+    class_path: lightning.pytorch.callbacks.ModelCheckpoint
+    init_args:
+      dirpath: ./checkpoints/
+
+      save_top_k: 3
+      monitor: 'step'
+      mode: max
+
+      save_last: true
+
+      save_weights_only: false
+
+
+      train_time_interval: "01:00:00"
+      every_n_train_steps: null
+
+  ########################################
+  ## Параметры запуска обучения
+  ########################################
+
+  max_time: "00:06:00:00"
+  max_epochs: -1
+  max_steps: -1
+
+  target_batch_size: 16
+
+  microbatch_size: 1
+
+  log_every_n_steps: 10
+
+  enable_progress_bar: false
+
+model:
+  load_model: ./model/RWKV-x060-World-1B6-v2-20240208-ctx4096.pth
+
+  ctx_len: 4096
+
+  lr_init: 1e-4
+  lr_final: 1e-5
+  lr_period: -1
+
+  bptt_learning: true
+
+  substep_cuda_cache_clear: true
+
+  beta1: 0.9
+  beta2: 0.99
+  adam_eps: 1.0e-08
+  weight_decay: 0.01
+
+data:
+  datapack_config_path: ./datapack.yaml
+
+
+ckpt_path: null

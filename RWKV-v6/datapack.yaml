@@ -1,0 +1,36 @@
+datapack:
+  data_path: ./merged_dataset/
+
+  mixing_mode: shuffle
+
+default:
+  dataset_length: 0.70
+
+  tokenizer: world
+
+  packing_enable: true
+  packing_chunksize: 4096
+  packing_in_sequence: false
+
+dataset:
+  # --- Датасет T-Wix ---
+  - name: "t-wix"
+    source: "t-tech/T-Wix"
+
+    conversation_format: 'sender'
+    conversation_key: 'messages'
+    conversation_sender_key: 'role'
+    conversation_sender_value_map: {'user': 'User', 'assistant': 'Assistant'}
+    conversation_input_key_map: {'content': "\n\n{sender}: "}
+    conversation_sender_mask: {'user': false, 'assistant': true}
+
+  # --- Датасет Glaive Function Calling ---
+  - name: "glaive-function-calling"
+    source: "korotkov/glaive-function-calling-v2-ru-parsed"
+
+    conversation_format: 'sender'
+    conversation_key: 'messages'
+    conversation_sender_key: 'role'
+    conversation_sender_value_map: {'system': 'System', 'user': 'User', 'assistant': 'Assistant'}
+    conversation_input_key_map: {'content': "\n\n{sender}: "}
+    conversation_sender_mask: {'system': false, 'user': false, 'assistant': true}
