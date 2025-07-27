@@ -1,9 +1,11 @@
 datapack:
-  data_path: ./merged_dataset/
+  data_path: ./merged_dataset
 
   mixing_mode: shuffle
 
 default:
+  data_path: ./dataset_cache
+
   dataset_length: 0.70
 
   tokenizer: world
@@ -23,8 +25,9 @@ dataset:
     conversation_sender_value_map: {'user': 'User', 'assistant': 'Assistant'}
     conversation_input_key_map: {'content': "\n\n{sender}: "}
     conversation_sender_mask: {'user': false, 'assistant': true}
+    conversation_sender_suffix: { 'user': "", 'assistant': "" }
 
-  # --- Датасет Glaive Function Calling ---
+    # --- Датасет Glaive Function Calling ---
   - name: "glaive-function-calling"
     source: "korotkov/glaive-function-calling-v2-ru-parsed"
 
@@ -34,3 +37,4 @@ dataset:
     conversation_sender_value_map: {'system': 'System', 'user': 'User', 'assistant': 'Assistant'}
     conversation_input_key_map: {'content': "\n\n{sender}: "}
     conversation_sender_mask: {'system': false, 'user': false, 'assistant': true}
+    conversation_sender_suffix: { 'system': "", 'user': "", 'assistant': "" }

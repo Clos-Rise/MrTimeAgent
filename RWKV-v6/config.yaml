@@ -43,7 +43,7 @@ trainer:
   enable_progress_bar: false
 
 model:
-  load_model: ./model/RWKV-x060-World-1B6-v2-20240208-ctx4096.pth
+  load_model: ./model/RWKV-x060-World-1B6-v2.1-20240328-ctx4096.pth
 
   ctx_len: 4096
 
@@ -61,6 +61,8 @@ model:
   weight_decay: 0.01
 
 data:
+  skip_datapath_setup: false
+
   datapack_config_path: ./datapack.yaml
 
 
